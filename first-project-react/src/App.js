@@ -4,11 +4,27 @@ import FormularioCadastro from "./components/FormularioCadastro";
 import "./assets/App.css";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      notas: []
+    }
+  }
+
+  criarCard(titulo, texto) {
+    const novoCard = { titulo, texto };
+    const novoArrayNotas = [...this.state.notas, novoCard];
+    const novoEstado = {
+      notas: novoArrayNotas,
+    };
+    this.setState(novoEstado);
+  }
+
   render() {
     return (
       <section className="conteudo">
-        <FormularioCadastro/>
-        <ListaDeNotas/>
+        <FormularioCadastro criarCard={this.criarCard.bind(this)} />
+        <ListaDeNotas notas={this.state.notas} />
       </section>
     );
   }
